@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:cache="http://www.springframework.org/schema/cache"
+   xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<context:component-scan base-package="com.banary.cache" />
+
+	<cache:annotation-driven cache-manager="simpleCacheManager" key-generator="localGenerator" proxy-target-class="true"/>
+
+	<bean id="simpleCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<ref bean="demoCache"></ref>
+			</set>
+		</property>
+	</bean>
+
+	<!--<bean name="cacheclinet" class="com.nonobank.architecture.cache.CacheClient">
+		<constructor-arg ref="codisconfig" />
+	</bean>
+
+	<bean name="codisconfig" class="com.nonobank.architecture.cache.CacheConfig">
+		<property name="maxTotal" value="${env.codis.pool.maxTotal}" />
+		<property name="maxIdle" value="${env.codis.pool.maxIdle}" />
+		<property name="minIdle" value="${env.codis.pool.minIdle}" />
+		<property name="maxWaitMillis" value="${env.codis.pool.maxWaitMillis}" />
+		<property name="zkAddressAndPort" value="${codis.zk.zkAddressAndPort}" />
+		<property name="zkSessionTimeOutMs" value="${codis.zk.zkSessionTimeOutMs}" />
+		<property name="zkProxyDir" value="${codis.zk.zkProxyDir}" />
+		<property name="debug" value="${env.codis.debug}" />
+		<property name="envrionment" value="${env.codis.envrionment}" />
+		<property name="password" value="${env.codis.password}" />
+	</bean>-->
+
+</beans>
